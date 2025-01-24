@@ -24,11 +24,10 @@ export class UserRegistrationService {
   // user login
   public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
-    const token = localStorage.getItem('token');
     return this.http.post(apiUrl + '/login', userDetails,{
       headers: new HttpHeaders(
         {
-          Authorization: 'Bearer ' + token,
+          'Content-type': 'application/json',
         })} ).pipe(
       catchError(this.handleError)
     );

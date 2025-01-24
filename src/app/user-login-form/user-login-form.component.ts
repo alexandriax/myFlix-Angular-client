@@ -18,7 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UserLoginFormComponent implements OnInit {
 
-  @Input() userData = { username: '', password: '', };
+  @Input() userData: any = { Username: '', Password: '', };
 
 constructor(
     public fetchApiData: UserRegistrationService,
@@ -27,6 +27,8 @@ constructor(
 
 ngOnInit(): void {
 }
+
+
 
 // This is the function responsible for sending the form inputs to the backend
 loginUser(): void {
@@ -39,11 +41,26 @@ loginUser(): void {
      this.snackBar.open('login successful!', 'OK', {
         duration: 2000
      });
-    }, (result) => {
+    },
+    (error) => {
+      // Error logs for debugging
+      console.error('Error status:', error.status); // Log the HTTP status code
+      console.error('Error body:', error.error);    // Log the error body from the server
+      this.snackBar.open(
+        error.error.message || 'Login failed. Please try again.', 
+        'OK', 
+        {
+          duration: 2000,
+        }
+      );
+    }
+  );
+} 
+    /*(result) => {
       this.snackBar.open(result, 'OK', {
         duration: 2000
       });
-    });
-  }
+    });*/
+}
 
-  }
+  
