@@ -37,6 +37,7 @@ export class UserRegistrationService {
   //get all movies
   public getAllMovies(): Observable<any> {
     const token = localStorage.getItem('token');
+    console.log('Stored Token:', token);
     return this.http.get(apiUrl + '/movies', {
       headers: new HttpHeaders(
         {
@@ -89,8 +90,7 @@ export class UserRegistrationService {
   //get user
   public getUser(): Observable <any> {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user');
-    return this.http.get(apiUrl + `/users/${userId}`, {
+    return this.http.get(apiUrl + `/users/me`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
       })
@@ -99,11 +99,27 @@ export class UserRegistrationService {
       catchError(this.handleError)
     );
   }
+  /*public getUser(): Observable <any> {
+    console.log(localStorage)
+    const token = localStorage.getItem('token');
+    const userId = JSON.parse(localStorage.getItem('user') || '""');
+    console.log(userId)
+    return this.http.get(apiUrl + `/users/${userId}`, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token
+      })
+    }).pipe(
+      map(this.extractResponseData),
+      catchError(this.handleError)
+    );
+  };*/
+
+  
 
   //get favorite movies
-  public getFavoriteMovies(): Observable <any> {
+  public getFavoriteMovies(userId: string): Observable <any> {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user');
+    //const userId = localStorage.getItem('user')?.replace(/['"]/g, '');
     return this.http.get(apiUrl + `/users/${userId}/movies`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
@@ -117,7 +133,7 @@ export class UserRegistrationService {
   //add favorite movie
   public addFavoriteMovie(movieId: string): Observable <any> {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user');
+    const userId = localStorage.getItem('user')?.replace(/['"]/g, '');
     return this.http.post(apiUrl + `/users/${userId}/movies/${movieId}`, null, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token

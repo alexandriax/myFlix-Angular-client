@@ -1,0 +1,9 @@
+.heart-icon {
+    font-size: 24px;
+    color: gray;
+    cursor: pointer;
+  
+    &.filled {
+      color: red;
+    }
+  }

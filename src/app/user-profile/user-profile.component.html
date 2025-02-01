@@ -1,0 +1,20 @@
+<div class="profile-container">
+    <h2>hi, {{ user?.username }}</h2>
+    <form (submit)="onSubmit()">
+        <label for="username">Username:</label>
+        <input id="username" [(ngModel)]="user.username" name="username" />
+
+        <label for="email">Email:</label>
+        <input id="email" [(ngModel)]="user.email" name="email" />
+
+        <label for="password">Password:</label>
+        <input id="password" [(ngModel)]="user.password" name="password" />
+
+        <button type="submit"> update profile </button>
+    </form>
+
+    <h3>Favorited Movies</h3>
+    <div class="movie-card"> <app-movie-card *ngFor="let movie of favoriteMovies" [movie]="movie" [isFavorite]="true">
+    </app-movie-card></div>
+    
+</div>
