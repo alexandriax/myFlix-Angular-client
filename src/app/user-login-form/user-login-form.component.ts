@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class UserLoginFormComponent implements OnInit {
 
-  @Input() userData: any = { Username: '', Password: '', };
+  @Input() userData: any = { username: '', password: '', };
 
 constructor(
     public fetchApiData: UserRegistrationService,
@@ -38,17 +38,31 @@ loginUser(): void {
   console.log(this.userData)
   ;
     this.fetchApiData.userLogin(this.userData).subscribe((result: any) => {
+      console.log(result);
       const userId = localStorage.getItem('user');
       console.log('User ID:', userId);
       
   // save user and token to local storage
   console.log(result.userId)
-     localStorage.setItem('user', JSON.stringify(result.userId));
+     localStorage.setItem('user', result.userId);
      localStorage.setItem('token', result.token);
+     console.log("API Login Response:", result);
+console.log("Received User Object:", result.user);
+
+if (result.user && result.user.username) {
+    localStorage.setItem('username', result.user.username);
+} else {
+    console.error("No username found in response!");
+}
+;
      this.dialogRef.close(); // This will close the modal on success!
      this.snackBar.open('login successful!', 'OK', {
         duration: 2000
      });
+     console.log('Saved Token:', localStorage.getItem('token'));
+     console.log("Username:", localStorage.getItem("username"));
+     console.log("User ID:", localStorage.getItem('user'));
+
      this.router.navigate(['movies']);
     },
     (error) => {

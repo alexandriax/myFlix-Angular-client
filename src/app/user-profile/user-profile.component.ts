@@ -15,6 +15,8 @@ export class UserProfileComponent {
   constructor(private userService: UserRegistrationService) {}
 
   ngOnInit(): void {
+    console.log("🔹 LocalStorage Username:", localStorage.getItem('username'));
+    console.log("🔹 LocalStorage UserID:", localStorage.getItem('user'));
     this.getUserData();
     //this.getFavoriteMovies();
   }
@@ -25,11 +27,11 @@ export class UserProfileComponent {
         console.log('fetched user:', resp);
         this.user = resp;
         //this.favoriteMovies = resp.favoriteMovies || [];
-        if (this.user._id) {
-          console.log('User ID:', this.user._id);
+        if (this.user.username) {
+          console.log('Username:', this.user.username);
           this.getFavoriteMovies(this.user._id);
         } else {
-          console.error('User ID is missing:', resp);
+          console.error('User is missing:', resp);
         }
       },
       error: (err) => {
