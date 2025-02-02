@@ -44,7 +44,7 @@ loginUser(): void {
       
   // save user and token to local storage
   console.log(result.userId)
-     localStorage.setItem('user', result.userId);
+     localStorage.setItem('user', result.user._id);
      localStorage.setItem('token', result.token);
      console.log("API Login Response:", result);
 console.log("Received User Object:", result.user);

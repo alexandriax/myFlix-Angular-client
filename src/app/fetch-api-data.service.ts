@@ -147,18 +147,22 @@ export class UserRegistrationService {
   
 
   //get favorite movies
-  public getFavoriteMovies(userId: string): Observable <any> {
+  public getFavoriteMovies(userId: string): Observable<any> {
     const token = localStorage.getItem('token');
-    //const userId = localStorage.getItem('user')?.replace(/['"]/g, '');
+    console.log(`Fetching favorite movies for user: ${userId}`);
     return this.http.get(apiUrl + `/users/${userId}/movies`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
       })
     }).pipe(
-      map(this.extractResponseData),
+      map((response) => {
+        console.log("API Response:", response);
+        return this.extractResponseData(response);
+      }),
       catchError(this.handleError)
     );
-  }
+}
+
 
   //add favorite movie
   public addFavoriteMovie(movieId: string): Observable<any> {

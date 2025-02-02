@@ -15,8 +15,8 @@ export class UserProfileComponent {
   constructor(private userService: UserRegistrationService) {}
 
   ngOnInit(): void {
-    console.log("🔹 LocalStorage Username:", localStorage.getItem('username'));
-    console.log("🔹 LocalStorage UserID:", localStorage.getItem('user'));
+    console.log("LocalStorage Username:", localStorage.getItem('username'));
+    console.log("LocalStorage UserID:", localStorage.getItem('user'));
     this.getUserData();
     //this.getFavoriteMovies();
   }
@@ -41,10 +41,16 @@ export class UserProfileComponent {
   }
 
   getFavoriteMovies(userId: string): void {
-    this.userService.getFavoriteMovies(userId).subscribe((response) => {
-      this.favoriteMovies = response;
+    this.userService.getFavoriteMovies(userId).subscribe({
+        next: (response) => {
+            console.log("Fetched Favorite Movies:", response);
+            this.favoriteMovies = response;
+        },
+        error: (err) => {
+            console.error("Error fetching favorite movies:", err);
+        }
     });
-  }
+}
 
   
 
