@@ -7,3 +7,49 @@
       color: red;
     }
   }
+
+  mat-card {
+    width: 250px;  /* Fixed width */
+    height: 400px; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  mat-card-subtitle {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  mat-card img {
+    width: 100%;
+    height: 250px; /* Ensures images are the same height */
+    object-fit: cover; /* Prevents distortion */
+    border-radius: 8px;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  

@@ -1,20 +1,24 @@
 <div class="profile-container">
-    <h2>hi, {{ user?.username }}</h2>
+    <h2>Hi, {{ user?.username }}</h2>
+
     <form (submit)="onSubmit()">
-        <label for="username">Username:</label>
-        <input id="username" [(ngModel)]="user.username" name="username" />
-
-        <label for="email">Email:</label>
-        <input id="email" [(ngModel)]="user.email" name="email" />
-
-        <label for="password">Password:</label>
-        <input id="password" [(ngModel)]="user.password" name="password" />
-
-        <button type="submit"> update profile </button>
-    </form>
-
-    <h3>Favorited Movies</h3>
-    <div class="movie-card"> <app-movie-card *ngFor="let movie of favoriteMovies" [movie]="movie" >
-    </app-movie-card></div>
+        <label for="username">New Username:</label>
+        <input id="username" [(ngModel)]="newUsername" name="username" placeholder="Enter new username" autocomplete="off" />
     
+        <label for="email">New Email:</label>
+        <input id="email" [(ngModel)]="newEmail" name="email" placeholder="Enter new email" autocomplete="off" />
+    
+        <label for="password">New Password:</label>
+        <input id="password" [(ngModel)]="newPassword" name="password" placeholder="Enter new password" type="password" autocomplete="new-password" />
+    
+        <button type="submit">Update Profile</button>
+    </form>
+    
+    <h3>Your Favorite Movies</h3>
+    <div class="movie-container">
+      <app-movie-card [movies]="favoriteMovies"></app-movie-card>
+    </div>
 </div>
+
+
+
