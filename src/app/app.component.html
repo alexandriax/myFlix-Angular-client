@@ -1,5 +1,6 @@
 <nav>
   <button mat-button [routerLink]="'/movies'">Movies</button>
   <button mat-button [routerLink]="'/profile'">Profile</button>
+  <button mat-button (click)="logout()" class="logout-btn">Logout</button>
 </nav>
 <router-outlet></router-outlet>

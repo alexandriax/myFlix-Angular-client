@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { DialogContentComponent } from './dialog-content/dialog-content.component';
 
 
 
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     UserLoginFormComponent,
     MovieCardComponent,
     WelcomePageComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    DialogContentComponent
   ],
   imports: [
     BrowserModule,

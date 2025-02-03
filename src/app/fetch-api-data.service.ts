@@ -3,17 +3,16 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-//Declaring the api url that will provide data for the client app
+// api url that will provide data for the client app
 const apiUrl = 'https://moo-movies-10a7ea08abc9.herokuapp.com';
 @Injectable({
   providedIn: 'root'
 })
 export class UserRegistrationService {
-  // Inject the HttpClient module to the constructor params
- // This will provide HttpClient to the entire class, making it available via this.http
+
   constructor(private http: HttpClient) {
   }
- // Making the api call for the user registration endpoint
+ // api call for the user registration endpoint
   public userRegistration(userData: any): Observable<any> {
     console.log(userData);
     return this.http.post(apiUrl + '/users', userData).pipe(
@@ -34,9 +33,8 @@ export class UserRegistrationService {
     }).pipe(
       map((response: any) => {
         if (response.user && response.user.username) {
-          localStorage.setItem('username', response.user.username); // Store username correctly
-          localStorage.setItem('user', response.user._id); // Store user ID for reference
-          console.log("Stored Username:", response.user.username);
+          localStorage.setItem('username', response.user.username); 
+          localStorage.setItem('user', response.user._id);
         }
         return response;
       }),
@@ -44,17 +42,6 @@ export class UserRegistrationService {
     );
 }
 
- /* public userLogin(userDetails: any): Observable<any> {
-    console.log(userDetails);
-    return this.http.post(apiUrl + '/login', userDetails,{
-      headers: new HttpHeaders(
-        {
-          'Content-type': 'application/json',
-        })} ).pipe(
-      catchError(this.handleError)
-    );
-  
-  } */
   
   //get all movies
   public getAllMovies(): Observable<any> {
@@ -115,10 +102,6 @@ export class UserRegistrationService {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
 
-    console.log("Fetching User Data with:");
-    console.log("Username:", username);
-    console.log("Token:", token);
-
     return this.http.get(apiUrl + `/users/${username}`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token
@@ -128,21 +111,6 @@ export class UserRegistrationService {
       catchError(this.handleError)
     );
 }
-
-  /*public getUser(): Observable <any> {
-    console.log(localStorage)
-    const token = localStorage.getItem('token');
-    const userId = JSON.parse(localStorage.getItem('user') || '""');
-    console.log(userId)
-    return this.http.get(apiUrl + `/users/${userId}`, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      })
-    }).pipe(
-      map(this.extractResponseData),
-      catchError(this.handleError)
-    );
-  };*/
 
   
 

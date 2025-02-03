@@ -1,11 +1,11 @@
 <!-- src/app/user-login-form/user-login-form.component.html -->
-<mat-card>
+<mat-card class="auth-card">
     <mat-card-header>
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <input
             matInput
             [(ngModel)]="userData.username"
@@ -15,7 +15,7 @@
             required
           >
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <input
             matInput
             [(ngModel)]="userData.password"

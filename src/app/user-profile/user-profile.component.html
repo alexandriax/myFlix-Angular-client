@@ -2,20 +2,26 @@
     <h2>Hi, {{ user?.username }}</h2>
 
     <form (submit)="onSubmit()">
-        <label for="username">New Username:</label>
-        <input id="username" [(ngModel)]="newUsername" name="username" placeholder="Enter new username" autocomplete="off" />
+        <div class="form-group">
+          <label for="username">New Username:</label>
+          <input id="username" [(ngModel)]="newUsername" name="username" placeholder="Enter new username" autocomplete="off" />
+       </div>
+
+       <div class="form-group">
+          <label for="email">New Email:</label>
+          <input id="email" [(ngModel)]="newEmail" name="email" placeholder="Enter new email" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
     
-        <label for="email">New Email:</label>
-        <input id="email" [(ngModel)]="newEmail" name="email" placeholder="Enter new email" autocomplete="off" />
-    
-        <label for="password">New Password:</label>
-        <input id="password" [(ngModel)]="newPassword" name="password" placeholder="Enter new password" type="password" autocomplete="new-password" />
-    
+          <label for="password">New Password:</label>
+          <input id="password" [(ngModel)]="newPassword" name="password" placeholder="Enter new password" type="password" autocomplete="new-password" />
+        </div>
         <button type="submit">Update Profile</button>
     </form>
     
-    <h3>Your Favorite Movies</h3>
-    <div class="movie-container">
+    <h1>Your Favorite Movies</h1>
+    <div class="movie-grid">
       <app-movie-card [movies]="favoriteMovies"></app-movie-card>
     </div>
 </div>

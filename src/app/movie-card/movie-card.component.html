@@ -9,8 +9,8 @@
       <img [src]="movie.image" alt="{{ movie.title }}" style="width: 100%;" />
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="primary">Genre</button>
-      <button mat-button color="primary">Synopsis</button>
+      <button mat-button color="primary" (click)="openDialog('Genre', movie.genre.name)">Genre</button>
+      <button mat-button color="primary" (click)="openDialog('Synopsis', movie.description)">Synopsis</button>
       <button (click)="toggleFavorite(movie)" mat-icon-button>
         <mat-icon>{{ isFavorite(movie._id) ? 'favorite' : 'favorite_border' }}</mat-icon>
       </button>

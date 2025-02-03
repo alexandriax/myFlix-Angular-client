@@ -21,7 +21,6 @@ export class UserProfileComponent  {
   ngOnInit(): void {
     this.getUserData();
 
-    // 🔥 Ensure fields are blank after user data loads
     setTimeout(() => {
       this.newUsername = '';
       this.newEmail = '';
@@ -39,7 +38,6 @@ getUserData(): void {
 
       this.getAllMovies();
 
-      // 🔥 Reset input fields explicitly
       this.newUsername = '';
       this.newEmail = '';
       this.newPassword = '';
@@ -92,7 +90,6 @@ getUserData(): void {
         alert('Profile updated successfully!');
         this.user = response;
 
-        // ✅ Reset form fields manually
         this.newUsername = '';
         this.newEmail = '';
         this.newPassword = ''; 

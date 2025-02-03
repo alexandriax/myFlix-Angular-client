@@ -1,121 +1,7 @@
-/*import { Component, Input } from '@angular/core';
-import { UserRegistrationService } from '../fetch-api-data.service'
-
-@Component({
-  selector: 'app-movie-card',
-  templateUrl: './movie-card.component.html',
-  styleUrls: ['./movie-card.component.scss']
-})
-export class MovieCardComponent {
-  @Input() movie: any;
-  favoriteMovies: string[] = [];
-
-  movies: any[] = [];
-  constructor(public fetchApiData: UserRegistrationService) {}
-
-  ngOnInit(): void {
-    this.getMovies();
-    this.getUserFavorites();
-    console.log("📽️ Received Movie in MovieCard:", this.movie);
-  }
-
- /* getMovies(): void {
-    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
-      this.movies = resp;
-      console.log(this.movies);
-      return this.movies;
-    });
-  } 
-
-    getMovies(): void {
-      this.fetchApiData.getAllMovies().subscribe({
-        next: (resp: any) => {
-          this.movies = resp;
-          console.log('Movies:', this.movies);
-        },
-        error: (err) => {
-          console.error('Error fetching movies:', err);
-        },
-      });
-    }
-    getUserFavorites(): void {
-      this.fetchApiData.getUser().subscribe({
-        next: (user) => {
-          this.favoriteMovies = user.favoriteMovies || []; // ✅ Ensure it's always an array
-          console.log('Favorite Movies:', this.favoriteMovies);
-        },
-        error: (err) => {
-          console.error('Error fetching user favorites:', err);
-          this.favoriteMovies = []; // ✅ Fallback to empty array if error occurs
-        }
-      });
-    }
-    
-  
-    isFavorite(movieId: string): boolean {
-      // Ensure favoriteMovies is always an array before calling includes()
-      return Array.isArray(this.favoriteMovies) && this.favoriteMovies.includes(movieId);
-    }
-    
-     
-    
-    toggleFavorite(movie: any): void {
-      console.log("Toggling favorite for movie:", movie);
-      console.log("Movie ID:", movie?._id || movie?.id); 
-  
-      if (!movie || !movie._id) {
-          console.error("Movie ID is undefined! Cannot favorite movie.");
-          return;
-      } 
-  
-      const movieId = movie._id;
-  
-      if (this.isFavorite(movieId)) {
-          this.fetchApiData.removeFavoriteMovie(movieId).subscribe({
-              next: (updatedUser) => {
-                  this.favoriteMovies = updatedUser.favoriteMovies || [];
-                  console.log(`Removed from favorites: ${movieId}`);
-                  this.getUserFavorites();  // 🔥 Force refresh
-              },
-              error: (err) => console.error(`Failed to remove ${movieId}:`, err),
-          });
-      } else {
-          this.fetchApiData.addFavoriteMovie(movieId).subscribe({
-              next: (updatedUser) => {
-                  this.favoriteMovies = updatedUser.favoriteMovies || [];
-                  console.log(`Added to favorites: ${movieId}`);
-                  this.getUserFavorites();  // 🔥 Force refresh
-              },
-              error: (err) => console.error(`Failed to add ${movieId}:`, err),
-          });
-      }
-  }
-  
-  
-
-  /*toggleFavorite(movieId: any): void {
-    console.log(movieId)
-    if (this.isFavorite) {
-      this.fetchApiData.removeFavoriteMovie(movieId).subscribe({
-        next: () => {
-          this.isFavorite = false;
-          console.log(`${movieId} removed from favorites`);
-        },
-        error: (err) => console.error(`Failed to remove ${movieId}:`, err),
-      });
-    } else {
-      this.fetchApiData.addFavoriteMovie(movieId).subscribe({
-        next: () => {
-          this.isFavorite = true;
-          console.log(`${movieId} added to favorites`);
-        },
-        error: (err) => console.error(`Failed to add ${movieId}:`, err),
-      });
-    }
-  }
-} */
-  import { Component, Input, OnInit } from '@angular/core';
-  import { UserRegistrationService } from '../fetch-api-data.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { UserRegistrationService } from '../fetch-api-data.service';
+import { DialogContentComponent } from '../dialog-content/dialog-content.component';
   
   @Component({
     selector: 'app-movie-card',
@@ -123,24 +9,34 @@ export class MovieCardComponent {
     styleUrls: ['./movie-card.component.scss']
   })
   export class MovieCardComponent implements OnInit {
-    @Input() movies: any[] = []; // Receive movies as input
+    @Input() movies: any[] = []; 
     favoriteMovies: string[] = [];
   
-    constructor(public fetchApiData: UserRegistrationService) {}
+    constructor(public fetchApiData: UserRegistrationService, public dialog: MatDialog) {}
+
+    
   
     ngOnInit(): void {
       this.getMovies();
       this.getUserFavorites();
     }
+
+    openDialog(title: string, content: string): void {
+      this.dialog.open(DialogContentComponent, {
+        width: '500px', 
+        data: { title, content }
+      });
+    }
+    
+  
   
     getMovies(): void {
       this.fetchApiData.getAllMovies().subscribe({
         next: (movies: any) => {
           this.movies = movies;
-          console.log("🎬 All Movies:", this.movies);
         },
         error: (err) => {
-          console.error("Error fetching movies:", err);
+          console.error("error getting movies:", err);
         },
       });
     }
@@ -149,10 +45,9 @@ export class MovieCardComponent {
       this.fetchApiData.getUser().subscribe({
         next: (user) => {
           this.favoriteMovies = user.favoriteMovies || [];
-          console.log("⭐ Favorite Movies:", this.favoriteMovies);
         },
         error: (err) => {
-          console.error("Error fetching user favorites:", err);
+          console.error("error getting user favorites:", err);
         },
       });
     }
@@ -163,7 +58,7 @@ export class MovieCardComponent {
   
     toggleFavorite(movie: any): void {
       if (!movie || !movie._id) {
-        console.error("Movie ID is undefined! Cannot favorite movie.");
+        console.error("movie ID is undefined");
         return;
       }
   
@@ -173,17 +68,15 @@ export class MovieCardComponent {
         this.fetchApiData.removeFavoriteMovie(movieId).subscribe({
           next: (updatedUser) => {
             this.favoriteMovies = updatedUser.favoriteMovies || [];
-            console.log(`🚫 Removed from favorites: ${movieId}`);
           },
-          error: (err) => console.error(`Failed to remove ${movieId}:`, err),
+          error: (err) => console.error(`failed to remove ${movieId}:`, err),
         });
       } else {
         this.fetchApiData.addFavoriteMovie(movieId).subscribe({
           next: (updatedUser) => {
             this.favoriteMovies = updatedUser.favoriteMovies || [];
-            console.log(`✅ Added to favorites: ${movieId}`);
           },
-          error: (err) => console.error(`Failed to add ${movieId}:`, err),
+          error: (err) => console.error(`failed to add ${movieId}:`, err),
         });
       }
     }
