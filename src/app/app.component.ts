@@ -4,7 +4,7 @@ import { UserRegistrationFormComponent } from './user-registration-form/user-reg
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieCardComponent } from './movie-card/movie-card.component';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +13,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'myFlix-Angular-client';
+  isWelcomePage: boolean = false;
 
-  constructor(public dialog: MatDialog, private router: Router) { }
+  constructor(public dialog: MatDialog, private router: Router) { 
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isWelcomePage = event.url === '/' || event.url === '/welcome'
+      }
+    })
+  }
 
 openUserRegistrationDialog(): void {
     this.dialog.open(UserRegistrationFormComponent, {

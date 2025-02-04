@@ -68,21 +68,13 @@ getUserData(): void {
   }
 
   onSubmit(): void {
-    const updatedUser: any = {};
+    const updatedUser: any = {
+        username: this.newUsername.trim() || this.user.username,
+        email: this.newEmail.trim() || this.user.email,
+    };
 
-    if (this.newUsername.trim()) {
-      updatedUser.username = this.newUsername;
-    }
-    if (this.newEmail.trim()) {
-      updatedUser.email = this.newEmail;
-    }
     if (this.newPassword.trim()) {
-      updatedUser.password = this.newPassword;
-    }
-
-    if (Object.keys(updatedUser).length === 0) {
-      alert("No changes were made.");
-      return;
+      updatedUser.password = this.newPassword.trim();
     }
 
     this.userService.editUser(updatedUser).subscribe({
@@ -98,6 +90,7 @@ getUserData(): void {
         console.error('Error updating user:', err);
       }
     });
+
   }
 }
 

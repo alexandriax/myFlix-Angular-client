@@ -148,11 +148,13 @@ export class UserRegistrationService {
 
   //edit user
   public editUser(userData: any): Observable<any> {
+    console.log('Request payload:', userData);
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user');
     return this.http.put(apiUrl + `/users/${userId}`, userData, {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
       })
     }).pipe(
       map(this.extractResponseData),
