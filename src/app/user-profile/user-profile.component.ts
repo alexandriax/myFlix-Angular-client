@@ -7,15 +7,7 @@ import { UserRegistrationService } from '../fetch-api-data.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent  {
-
-  /**
-   * Stores current user data.
-   */
   user: any = {}; 
-
-  /** 
-   * Stores updated username.
-  */
   newUsername: string = ''; 
   newEmail: string = ''; 
   newPassword: string = '';
@@ -24,11 +16,6 @@ export class UserProfileComponent  {
   allMovies: any[] = [];
   favoriteMovies: any[] = [];
 
-
-  /**
-   * Creates an instance of UserProfileComponent.
-   * @param {UserRegistrationService} userService - Service for handling user-related API calls.
-   */
   constructor(private userService: UserRegistrationService) {}
 
   ngOnInit(): void {
@@ -41,9 +28,7 @@ export class UserProfileComponent  {
     }, 0);
 }
 
-  /**
-   * Fetches user's data & fav movies from the API.
-   */
+
 getUserData(): void {
   this.userService.getUser().subscribe({
     next: (resp) => {
@@ -75,18 +60,13 @@ getUserData(): void {
       },
     });
   }
-  /**
-   * Filters the user's favorite movies from the full movie list.
-   */
+
   filterFavoriteMovies(): void {
     this.favoriteMovies = this.allMovies.filter(movie => 
       this.favoriteMovieIds.includes(movie._id)
     );
   }
-  /**
-   * Updates the user's profile with new input values.
-   * If an input field is empty, it keeps the existing value.
-   */
+
   onSubmit(): void {
     const updatedUser: any = {
         username: this.newUsername.trim() || this.user.username,
