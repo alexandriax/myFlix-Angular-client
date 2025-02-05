@@ -1,0 +1,12 @@
+{
+    "source": {
+      "include": ["src"],
+      "includePattern": ".+\\.ts$",
+      "excludePattern": "(node_modules/|dist/|\\.spec\\.ts$)"
+    },
+    "opts": {
+      "destination": "jsdocs",
+      "recurse": true
+    }
+  }
+  

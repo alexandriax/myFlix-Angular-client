@@ -15,6 +15,14 @@ export class UserLoginFormComponent implements OnInit {
 
   @Input() userData: any = { username: '', password: '', };
 
+   /**
+   * Creates an instance of UserLoginFormComponent.
+   * @param {UserRegistrationService} fetchApiData - Service for handling API calls.
+   * @param {MatDialogRef<UserLoginFormComponent>} dialogRef - Reference to the login dialog.
+   * @param {MatSnackBar} snackBar - Snackbar for displaying notifications.
+   * @param {Router} router - Router for navigating after login.
+   */
+
 constructor(
     public fetchApiData: UserRegistrationService,
     public dialogRef: MatDialogRef<UserLoginFormComponent>,
@@ -25,8 +33,11 @@ constructor(
 ngOnInit(): void {
 }
 
-
-
+  /**
+   * Logs in user by sending credentials to API.
+   * Saves user information and token to local storage.
+   * Closes the dialog, displays a success message, and redirects to the movies page.
+   */
 loginUser(): void {
   console.log(this.userData)
   ;

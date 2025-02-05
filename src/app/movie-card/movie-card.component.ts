@@ -9,9 +9,21 @@ import { DialogContentComponent } from '../dialog-content/dialog-content.compone
     styleUrls: ['./movie-card.component.scss']
   })
   export class MovieCardComponent implements OnInit {
+  /**
+   * List of movies to display, received as an input from the parent component.
+   */
     @Input() movies: any[] = []; 
+
+  /**
+   * Array of user's favorite movie IDs.
+   */
     favoriteMovies: string[] = [];
-  
+
+  /**
+   * Creates an instance of MovieCardComponent.
+   * @param {UserRegistrationService} fetchApiData - Service for fetching API data.
+   * @param {MatDialog} dialog - Angular Material dialog service for opening modals.
+   */
     constructor(public fetchApiData: UserRegistrationService, public dialog: MatDialog) {}
 
     
@@ -21,6 +33,11 @@ import { DialogContentComponent } from '../dialog-content/dialog-content.compone
       this.getUserFavorites();
     }
 
+  /**
+   * Opens a dialog displaying additional information.
+   * @param {string} title - Title of the dialog.
+   * @param {string} content - Content of the dialog (genre or synopsis).
+   */
     openDialog(title: string, content: string): void {
       this.dialog.open(DialogContentComponent, {
         width: '500px', 

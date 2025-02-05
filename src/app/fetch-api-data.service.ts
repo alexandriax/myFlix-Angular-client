@@ -10,8 +10,18 @@ const apiUrl = 'https://moo-movies-10a7ea08abc9.herokuapp.com';
 })
 export class UserRegistrationService {
 
+    /**
+   * Creates an instance of UserRegistrationService.
+   * @param {HttpClient} http - Angular's HTTP client for making API calls.
+   */
   constructor(private http: HttpClient) {
   }
+
+   /**
+   * Registers a new user.
+   * @param {Object} userData - User data including username, password, email, and birthday.
+   * @returns {Observable<any>} API response.
+   */
  // api call for the user registration endpoint
   public userRegistration(userData: any): Observable<any> {
     console.log(userData);
@@ -19,7 +29,11 @@ export class UserRegistrationService {
     catchError(this.handleError)
     );
   }
-
+  /**
+   * Logs in a user.
+   * @param {Object} userData - User credentials (username and password).
+   * @returns {Observable<any>} API response including user details and token.
+   */
   // user login
   public userLogin(userData: any): Observable<any> {
     console.log(userData);
@@ -42,7 +56,7 @@ export class UserRegistrationService {
     );
 }
 
-  
+ 
   //get all movies
   public getAllMovies(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -57,6 +71,7 @@ export class UserRegistrationService {
           catchError(this.handleError)
         );
   }
+
 
   //get one movie
   public getMovie(movieId: string): Observable<any> {
@@ -131,7 +146,11 @@ export class UserRegistrationService {
     );
 }
 
-
+  /**
+   * Adds a movie to the user's list of favorites.
+   * @param {string} movieId - ID of the movie to add.
+   * @returns {Observable<any>} Updated user details.
+   */
   //add favorite movie
   public addFavoriteMovie(movieId: string): Observable<any> {
     const token = localStorage.getItem('token');
@@ -145,7 +164,11 @@ export class UserRegistrationService {
       catchError(this.handleError)
     );
 }
-
+  /**
+   * Updates user profile information.
+   * @param {Object} userData - Updated user information.
+   * @returns {Observable<any>} Updated user details.
+   */
   //edit user
   public editUser(userData: any): Observable<any> {
     console.log('Request payload:', userData);

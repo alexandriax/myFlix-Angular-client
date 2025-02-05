@@ -9,7 +9,11 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./welcome-page.component.scss']
 })
 export class WelcomePageComponent {
-  
+
+    /**
+   * Creates an instance of WelcomePageComponent.
+   * @param {MatDialog} dialog - Service for opening modals.
+   */
     constructor(public dialog: MatDialog) { }
     ngOnInit(): void {}
   // This is the function that will open the dialog when the signup button is clicked  
