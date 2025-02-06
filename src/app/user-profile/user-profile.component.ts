@@ -7,7 +7,14 @@ import { UserRegistrationService } from '../fetch-api-data.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent  {
+  /**
+   * Stores the current user's information.
+   */
   user: any = {}; 
+
+  /**
+   * Stores new username input for profile update.
+   */
   newUsername: string = ''; 
   newEmail: string = ''; 
   newPassword: string = '';
@@ -28,7 +35,9 @@ export class UserProfileComponent  {
     }, 0);
 }
 
-
+  /**
+   * Fetches user details & fav movies from the API.
+   */
 getUserData(): void {
   this.userService.getUser().subscribe({
     next: (resp) => {
@@ -48,7 +57,9 @@ getUserData(): void {
   });
 }
 
-
+  /**
+   * Fetches all movies from the API.
+   */
   getAllMovies(): void {
     this.userService.getAllMovies().subscribe({
       next: (movies) => {
@@ -67,6 +78,10 @@ getUserData(): void {
     );
   }
 
+  /**
+   * Updates the user's profile with new input values.
+   * If an input field is empty, the existing value is retained.
+   */
   onSubmit(): void {
     const updatedUser: any = {
         username: this.newUsername.trim() || this.user.username,

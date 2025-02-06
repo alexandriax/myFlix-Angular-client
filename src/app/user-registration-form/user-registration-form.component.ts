@@ -22,7 +22,9 @@ constructor(
 ngOnInit(): void {
 }
 
-
+  /**
+   * Registers a new user by sending the form data to the API.
+   */
 registerUser(): void {
     this.fetchApiData.userRegistration(this.userData).subscribe((result) => {
      this.dialogRef.close(); 

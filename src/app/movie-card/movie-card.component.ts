@@ -29,7 +29,9 @@ import { DialogContentComponent } from '../dialog-content/dialog-content.compone
     }
     
   
-  
+  /**
+   * Fetches all movies from the API and updates the movie list.
+   */
     getMovies(): void {
       this.fetchApiData.getAllMovies().subscribe({
         next: (movies: any) => {
@@ -40,7 +42,10 @@ import { DialogContentComponent } from '../dialog-content/dialog-content.compone
         },
       });
     }
-  
+
+  /**
+   * Fetches the user's favorite movies from the API.
+   */
     getUserFavorites(): void {
       this.fetchApiData.getUser().subscribe({
         next: (user) => {
@@ -51,11 +56,20 @@ import { DialogContentComponent } from '../dialog-content/dialog-content.compone
         },
       });
     }
-  
+
+  /**
+   * Checks if a movie is in the user's list of favorites.
+   * @param movieId - The ID of the movie.
+   * @returns True if the movie is a favorite, otherwise false.
+   */
     isFavorite(movieId: string): boolean {
       return Array.isArray(this.favoriteMovies) && this.favoriteMovies.includes(movieId);
     }
-  
+    
+  /**
+   * Adds or removes a movie from the user's list of favorites.
+   * @param movie - The movie object.
+   */
     toggleFavorite(movie: any): void {
       if (!movie || !movie._id) {
         console.error("movie ID is undefined");

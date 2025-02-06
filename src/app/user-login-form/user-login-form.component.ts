@@ -26,7 +26,9 @@ ngOnInit(): void {
 }
 
 
-
+  /**
+   * Authenticates the user by sending login credentials to the API.
+   */
 loginUser(): void {
   console.log(this.userData)
   ;
